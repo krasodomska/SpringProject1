@@ -6,16 +6,14 @@ import org.springframework.stereotype.Service;
 @Service
 @Profile("START")
 public class START extends ShopService{
-    @ Override
+    @Override
     public void sumProducts() {
-        int sum = (Integer) products.stream()
-                .map(Product::getPrice)
+        int sum =products.stream()
+                .map(Product::price)
                 .mapToInt(Integer::intValue)
                 .sum();
 
-        System.out.println("Sum with VAT " +
-                sum
-                + "zł"
+        System.out.println("Sum with VAT " + sum + "zł"
         );
     }
 }

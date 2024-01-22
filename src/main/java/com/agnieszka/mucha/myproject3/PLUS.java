@@ -7,21 +7,19 @@ import org.springframework.stereotype.Service;
 @Service
 @ConfigurationProperties(prefix = "shop-setup-plus")
 @Profile("PLUS")
-public class PLUS extends ShopService{
+public class PLUS extends ShopService {
     private int VAT;
 
-    @ Override
+    @Override
     public void sumProducts() {
-        int sum = (Integer) products.stream()
-                .map(Product::getPrice)
+        int sum = products.stream()
+                .map(Product::price)
                 .mapToInt(Integer::intValue)
                 .sum();
 
         sum += sum * VAT / 100;
 
-        System.out.println("Sum with VAT " +
-                sum
-                + "zł"
+        System.out.println("Sum with VAT " + sum + "zł"
         );
     }
 
