@@ -4,29 +4,26 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
-
+/**
+ * implementation PRO package - price with VAT and discount
+ */
 @Service
 @ConfigurationProperties(prefix = "shop-setup-pro")
 @Profile("PRO")
-public class PRO extends ShopService{
+public class ProService extends ShopService {
     private int VAT;
     private int discount;
 
+    /**
+     * @param originalPrice
+     * @return price increase by VAT and decrease by discount
+     */
     @Override
-    public void sumProducts() {
-        int sum = products.stream()
-                .map(Product::price)
-                .mapToInt(Integer::intValue)
-                .sum();
-
-        sum += sum * VAT / 100;
-        sum -= sum * discount / 100;
-
-        System.out.println("Sum with VAT with discount " + sum + "zł"
-        );
+    public int priceChange(int originalPrice) {
+        originalPrice += originalPrice * VAT / 100;
+        originalPrice -= originalPrice * discount / 100;
+        return originalPrice;
     }
-
-
 
 
     public void setVAT(int VAT) {
